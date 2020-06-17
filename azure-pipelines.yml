@@ -8,6 +8,6 @@ resources:
 extends:
   template: third-party-library-all-platforms-from-local-recipe.yml@templates
   parameters:
-    package: sqlite3
+    package: ccdc_sqlite3
     package_version: 3.17.0
     destination_repository: ccdc-3rdparty-conan
