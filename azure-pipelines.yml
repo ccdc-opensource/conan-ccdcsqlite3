@@ -1,0 +1,14 @@
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: ccdc-3rd-party/conan-azure-devops
+      ref: refs/heads/development
+
+extends:
+  template: third-party-library-all-platforms-from-local-recipe.yml@templates
+  parameters:
+    package: sqlite3
+    package_version: 3.17.0
+    source_repository: public-conan-center
+    destination_repository: ccdc-3rdparty-conan
