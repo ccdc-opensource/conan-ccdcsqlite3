@@ -3,8 +3,8 @@ from conans import ConanFile, CMake, tools
 
 
 class CCDCConanSqlite3(ConanFile):
-    name = "ccdc_sqlite3"
-    description = "Self-contained, serverless, in-process SQL database engine."
+    name = "ccdcsqlite3"
+    description = "CCDC customised version of sqlite."
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.sqlite.org"
     topics = ("conan", "sqlite", "database", "sql", "serverless")

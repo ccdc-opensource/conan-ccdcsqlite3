@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.2)
-project(sqlite3 C)
+project(ccdcsqlite3 C)
 
 include(conanbuildinfo.cmake)
 conan_basic_setup()
