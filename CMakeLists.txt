@@ -21,6 +21,7 @@ option(HAVE_POSIX_FALLOCATE "Use posix_fallocate()")
 option(HAVE_STRERROR_R "Use strerror_r()")
 option(HAVE_USLEEP "Use usleep() system call to implement the xSleep method")
 option(DISABLE_GETHOSTUUID "Disable function gethostuuid")
+option(ENABLE_NULL_TRIM "Enables an optimization that omits NULL columns at the ends of rows, for a space savings on disk")
 
 add_library(${PROJECT_NAME} source_subfolder/sqlite3.c)
 if (WIN32 AND MSVC AND BUILD_SHARED_LIBS)
@@ -72,6 +73,10 @@ if(DISABLE_GETHOSTUUID)
     target_compile_definitions(${PROJECT_NAME}  PRIVATE HAVE_GETHOSTUUID=0)
 endif()
 target_compile_definitions(${PROJECT_NAME}  PRIVATE SQLITE_THREADSAFE=${THREADSAFE})
+if(ENABLE_NULL_TRIM)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE ENABLE_NULL_TRIM)
+endif()
+target_compile_definitions(${PROJECT_NAME}  PRIVATE SQLITE_MAX_COLUMN=${MAX_COLUMN})
 
 install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin

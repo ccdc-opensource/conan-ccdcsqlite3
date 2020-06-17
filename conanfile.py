@@ -26,6 +26,8 @@ class CCDCConanSqlite3(ConanFile):
                "enable_unlock_notify": [True, False],
                "disable_gethostuuid": [True, False],
                "build_executable": [True, False],
+               "enable_null_trim": [True, False],
+               "max_column": "ANY",
                }
     default_options = {"shared": False,
                        "fPIC": True,
@@ -41,6 +43,8 @@ class CCDCConanSqlite3(ConanFile):
                        "enable_unlock_notify": True,
                        "disable_gethostuuid": False,
                        "build_executable": True,
+                       "enable_null_trim": False,
+                       "max_column": "2000", # default according to https://www.sqlite.org/limits.html#max_column
                        }
 
     _cmake = None
@@ -122,6 +126,8 @@ class CCDCConanSqlite3(ConanFile):
         self._cmake.definitions["HAVE_STRERROR_R"] = True
         self._cmake.definitions["HAVE_USLEEP"] = True
         self._cmake.definitions["DISABLE_GETHOSTUUID"] = self.options.disable_gethostuuid
+        self._cmake.definitions["ENABLE_NULL_TRIM"] = self.options.enable_null_trim
+        self._cmake.definitions["MAX_COLUMN"] = self.options.max_column
         self._cmake.configure()
         return self._cmake
 
