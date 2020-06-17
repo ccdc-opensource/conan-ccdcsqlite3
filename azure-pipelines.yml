@@ -10,5 +10,4 @@ extends:
   parameters:
     package: sqlite3
     package_version: 3.17.0
-    source_repository: public-conan-center
     destination_repository: ccdc-3rdparty-conan
