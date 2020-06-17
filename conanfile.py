@@ -63,6 +63,35 @@ class CCDCConanSqlite3(ConanFile):
         archive_name = os.path.basename(url)
         archive_name = os.path.splitext(archive_name)[0]
         os.rename(archive_name, self._source_subfolder)
+        # See BZ 17772 (now JIRA CPP-1008)
+        for filename in ['sqlite3.h', 'sqlite3.c']:
+            filename = os.path.join(self._source_subfolder, filename)
+            with open(filename, 'r') as f:
+                text = f.read()
+
+            function_names = []
+            import re
+            for match in re.finditer(r'SQLITE_API .*(sqlite3_\w+)[;\[\(]', text):
+                function_names.append(match.group(1))
+
+            split_string = '#define _SQLITE3_H_'
+            split_point = text.find(split_string)
+            if split_point == -1:
+                split_string = '#define SQLITE3_H'
+                split_point = text.find(split_string)
+                if split_point == -1:
+                    raise RuntimeError("Can't find " + split_string + " in sqlite header file")
+
+            split_point += len(split_string)
+
+            redefined_functions = '\n'.join([
+                '#define ' + f + ' ccdc_' + f for f in sorted(set(function_names))
+            ])
+
+            text = text[:split_point] + '\n\n' + redefined_functions + '\n\n' + text[split_point:]
+
+            with open(filename, 'w') as f:
+                f.write(text)
 
     def _configure_cmake(self):
         if self._cmake:
