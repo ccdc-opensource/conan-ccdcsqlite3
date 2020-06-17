@@ -2,8 +2,8 @@ import os
 from conans import ConanFile, CMake, tools
 
 
-class ConanSqlite3(ConanFile):
-    name = "sqlite3"
+class CCDCConanSqlite3(ConanFile):
+    name = "ccdc_sqlite3"
     description = "Self-contained, serverless, in-process SQL database engine."
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://www.sqlite.org"
