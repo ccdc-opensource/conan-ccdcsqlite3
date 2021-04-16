@@ -9,5 +9,5 @@ extends:
   template: third-party-library-all-platforms-from-local-recipe.yml@templates
   parameters:
     package: ccdcsqlite3
-    package_version: 3.32.1
+    package_version: 3.35.4
     destination_repository: ccdc-3rdparty-conan
