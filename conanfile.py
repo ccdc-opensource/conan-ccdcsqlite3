@@ -136,8 +136,6 @@ class CCDCConanSqlite3(ConanFile):
                 f.write(text)
         for function in [
             "sqlite3_win32_unicode_to_utf8",
-            "sqlite3_win32_mbcs_to_utf8_v2",
-            "sqlite3_win32_utf8_to_mbcs_v2",
             "sqlite3_win32_utf8_to_unicode",
         ]:
             tools.replace_in_file("source_subfolder/shell.c", function, "ccdc_" + function)
